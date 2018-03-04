@@ -3,6 +3,7 @@ package com.gradledevextreme.light.newsbox.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -311,7 +312,37 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         } else if (id == R.id.nav_share) {
 
+
+
+
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Aptitude Learner");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+
+
+
         } else if (id == R.id.FE) {
+
+
+
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"parasvirdi@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback /Request");
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+            try {
+                startActivity(Intent.createChooser(intent, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(NavigationActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+
+
+
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
