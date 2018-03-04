@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="Settings">
+    <menu>
+        <item
+            android:id="@+id/General"
+            android:title="General " />
+        <item
+            android:id="@+id/Yourinterest"
+            android:title="Your Interests" />
+        <item
+            android:id="@+id/LanCountry"
+            android:title="Language and Country" />
+
+
+
+    </menu>
+
+
+    </item>
+
+
+         <item
+            android:id="@+id/savedarticles"
+            android:title="Saved Articles" />
+
+
+
+
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/FE"
+                android:title="Feedback/Request" />
+        </menu>
+    </item>
+
+</menu>

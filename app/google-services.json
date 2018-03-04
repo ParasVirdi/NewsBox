@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "192826575117",
+    "firebase_url": "https://newsbox-35933.firebaseio.com",
+    "project_id": "newsbox-35933",
+    "storage_bucket": "newsbox-35933.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192826575117:android:6be0f30c4774c698",
+        "android_client_info": {
+          "package_name": "com.gradledevextreme.light.newsbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192826575117-0bhnoq9a34djif18rfdhs11oale8cobv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gradledevextreme.light.newsbox",
+            "certificate_hash": "b596c34af193db3bcda4a26e508e0aa0c7d21768"
+          }
+        },
+        {
+          "client_id": "192826575117-264uccakf6h2sq4fe1sdt3u2oj9f2oih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gradledevextreme.light.newsbox",
+            "certificate_hash": "06ea5a274402d39f58bef36cfc5a3829fe7ef918"
+          }
+        },
+        {
+          "client_id": "192826575117-sofntr089b1jl5s6irvgmf86mv397k12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSTiWVldcej0EITqRw58IT5-mvrNtpPrs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192826575117-sofntr089b1jl5s6irvgmf86mv397k12.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
