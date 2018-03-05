@@ -13,14 +13,11 @@
         android:title="For You" />
 
     <item
-        android:id="@+id/Buzz"
+        android:id="@+id/World"
         android:icon="@drawable/ic_view_agenda_black_24dp"
-        android:title="Buzz" />
+        android:title="World" />
 
 
-    <item
-        android:id="@+id/Notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Notifications" />
+
 
 </menu>

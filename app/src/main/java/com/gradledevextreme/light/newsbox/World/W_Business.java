@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox.Headlines;
+package com.gradledevextreme.light.newsbox.World;
 
 
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
 import com.gradledevextreme.light.newsbox.Activities.LoginActivity;
-import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
+import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
+import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
 
 import org.json.JSONArray;
@@ -28,27 +29,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-
-
-
-
-public class Sports extends Fragment {
+public class W_Business extends Fragment {
 
 
 
 
     private CustomAdapter adapter;
-    private RecyclerView sportsHeadlinesRecyclerView;
+    private RecyclerView buisnessHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
 
 
 
 
-    public Sports() {
+    public W_Business() {
         // Required empty public constructor
     }
 
@@ -58,14 +57,18 @@ public class Sports extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
         // Inflate the layout for this fragment
-        View view =   inflater.inflate(R.layout.fragment_sports, container, false);
-        if(getActivity().getActionBar()!=null)
-            Toast.makeText(getContext(), getActivity().getActionBar().getTitle(), Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getContext(),"Action Bar Not found",Toast.LENGTH_SHORT).show();
+        View view =inflater.inflate(R.layout.fragment_business, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location  = settings.getString("location","");
+
+
+
+
         //if we dont have any location india or world etc in locations
         if(location.equals("")){
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
@@ -74,44 +77,21 @@ public class Sports extends Fragment {
         }else{
             arrayList = new ArrayList<>();
             adapter = new CustomAdapter(getContext(),arrayList);
-            sportsHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.sportsHeadlinesRecyclerView);
+            buisnessHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.buisnessHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-            sportsHeadlinesRecyclerView.setLayoutManager(layoutManager);
-            sportsHeadlinesRecyclerView.setAdapter(adapter);
+            buisnessHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            buisnessHeadlinesRecyclerView.setAdapter(adapter);
 
 
 
 
-            switch (location){
+            getStories("financial-times");
 
-                case "India":
-                    getStories("espn-cric-info");
-                    break;
-                case "Australia":
-                    getStories("bbc-sport");
-                    break;
-                case "USA":
-                    getStories("bbc-sport");
-                    break;
-                case "UK":
-                    getStories("bbc-sport");
-                    break;
-                default:
-                    getStories("bbc-sport");
-                    break;
-            }
+
+
 
         }
-
-
-
-
-
         return view;
-
-
-
-
     }
 
 
@@ -135,9 +115,9 @@ public class Sports extends Fragment {
                     //now get every title etc from that array
                     JSONObject object1=null;
                     NewsModel model;
-                    for (int i=0;i<array.length();i++) {
+                    for (int i=0;i<array.length();i++){
                         model = new NewsModel();
-                        object1 = array.getJSONObject(i);
+                        object1 =  array.getJSONObject(i);
                         model.setTitle(object1.getString("title"));
                         model.setDescription(object1.getString("description"));
                         model.setAuthor(object1.getString("author"));
@@ -148,6 +128,45 @@ public class Sports extends Fragment {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+
+
+
+        Volley.newRequestQueue(getContext()).add(request);
+
+
+
+
+    }
+
+
+
+
+    public void getNewsForIndia(){
+
+
+
+
+        String url = "http://www.thehindu.com/todays-paper/tp-business/";
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("response",response);
+                String[] split = response.split("<ul class=\"archive-list\">");
+                Pattern pattern = Pattern.compile(">(.*?)<");
+                Matcher matcher = pattern.matcher(split[1]);
+                if (matcher.find())
+                {
+                    Log.v("matcher",matcher.group(1));
+                }else{
+                    Log.v("not","found");
                 }
             }
         }, new Response.ErrorListener() {

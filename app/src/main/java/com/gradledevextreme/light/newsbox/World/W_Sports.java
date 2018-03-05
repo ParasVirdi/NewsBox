@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox.Headlines;
+package com.gradledevextreme.light.newsbox.World;
 
 
 import android.content.Intent;
@@ -17,10 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
 import com.gradledevextreme.light.newsbox.Activities.LoginActivity;
-import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
+import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
+import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
 
 import org.json.JSONArray;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 
 
 
-public class Sports extends Fragment {
+public class W_Sports extends Fragment {
 
 
 
@@ -48,7 +48,7 @@ public class Sports extends Fragment {
 
 
 
-    public Sports() {
+    public W_Sports() {
         // Required empty public constructor
     }
 
@@ -82,24 +82,10 @@ public class Sports extends Fragment {
 
 
 
-            switch (location){
+            getStories("bbc-sport");
 
-                case "India":
-                    getStories("espn-cric-info");
-                    break;
-                case "Australia":
-                    getStories("bbc-sport");
-                    break;
-                case "USA":
-                    getStories("bbc-sport");
-                    break;
-                case "UK":
-                    getStories("bbc-sport");
-                    break;
-                default:
-                    getStories("bbc-sport");
-                    break;
-            }
+
+
 
         }
 

@@ -1,5 +1,6 @@
 package com.gradledevextreme.light.newsbox.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +31,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
-import com.gradledevextreme.light.newsbox.BottomNavigation.Buzz;
+import com.gradledevextreme.light.newsbox.BottomNavigation.World;
 import com.gradledevextreme.light.newsbox.BottomNavigation.ForYou;
 import com.gradledevextreme.light.newsbox.BottomNavigation.HeadLines;
-import com.gradledevextreme.light.newsbox.BottomNavigation.Notifications;
 import com.gradledevextreme.light.newsbox.Fragment_main;
+import com.gradledevextreme.light.newsbox.Headlines.TopStories;
 import com.gradledevextreme.light.newsbox.R;
 
 
@@ -51,6 +55,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private SharedPreferences.Editor editor;
     public static final String PREFS_NAME = "MyPrefsFile";
     private SharedPreferences settings;
+    private String countryNames[] = {"Choose your Country","India","Australia","Uk","USA"};
 
 
 
@@ -217,24 +222,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     toolbar.setTitle("For You");
                     return true;
 
-                case R.id.Buzz:
-                    Buzz fragment2 = new Buzz();
+                case R.id.World:
+                    World fragment2 = new World();
                     android.support.v4.app.FragmentTransaction fragmentTransaction2 =
                             getSupportFragmentManager().beginTransaction();
                     fragmentTransaction2.replace(R.id.fragment_main, fragment2);
                     fragmentTransaction2.commit();
-                    toolbar.setTitle("Buzz");
+                    toolbar.setTitle("World");
                     return true;
 
-                case R.id.Notifications:
 
-                    Notifications fragment3 = new Notifications();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction3 =
-                            getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction3.replace(R.id.fragment_main, fragment3);
-                    fragmentTransaction3.commit();
-                    toolbar.setTitle("Notifications");
-                    return true;
+
 
             }
             return false;
@@ -307,6 +305,47 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.Yourinterest) {
 
         } else if (id == R.id.LanCountry) {
+
+
+
+
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(NavigationActivity.this);
+            View mView = getLayoutInflater().inflate(R.layout.countryspinner,null);
+            mBuilder.setTitle("Choose Country");
+            final Spinner mSpinner = (Spinner)mView.findViewById(R.id.spinner);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(NavigationActivity.this,android.R.layout.simple_spinner_dropdown_item,
+                    countryNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mSpinner.setAdapter(adapter);
+
+
+
+
+            mBuilder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(!mSpinner.getSelectedItem().toString().equalsIgnoreCase("Please select your Country"));
+                    editor.putString("location",mSpinner.getSelectedItem().toString());
+                    editor.apply();
+                    Toast.makeText(NavigationActivity.this, mSpinner.getSelectedItem().toString() +" selected as a country"
+                            , Toast.LENGTH_SHORT).show();
+
+                    //logic for array replace
+                    countryNames[0] = mSpinner.getSelectedItem().toString();
+                }
+            });
+            mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                   dialogInterface.dismiss();
+                }
+            });
+            mBuilder.setView(mView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
+
+
+
 
         } else if (id == R.id.savedarticles) {
 

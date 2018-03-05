@@ -74,11 +74,7 @@ public class Entertainment extends Fragment {
                 case "India":
                     getStories("buzzfeed");
                     break;
-                case "World":
-                    getStories("mashable");
-                    break;
                 case "Australia":
-                    Toast.makeText(getContext(), "Finding entertainment news paper for australia", Toast.LENGTH_SHORT).show();
                     getStories("mashable");
                     break;
                 case "USA":

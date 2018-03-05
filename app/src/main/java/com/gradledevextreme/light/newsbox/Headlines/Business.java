@@ -88,20 +88,16 @@ public class Business extends Fragment {
             switch (location){
 
                 case "India":
-                    getNewsForIndia();
-                    break;
-                case "World":
                     getStories("financial-times");
                     break;
                 case "Australia":
-                    Toast.makeText(getContext(), "Still finding business newspaper for Australia", Toast.LENGTH_SHORT).show();
                     getStories("abc-news-au");
                     break;
                 case "USA":
                     getStories("the-wall-street-journal");
                     break;
                 case "UK":
-                        getStories("business-insider-uk");
+                    getStories("business-insider-uk");
                     break;
                 default:
                     getStories("the-wall-street-journal");

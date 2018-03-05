@@ -81,9 +81,6 @@ public class Science extends Fragment {
                 case "India":
                     getStories("national-geographic");
                     break;
-                case "World":
-                    getStories("national-geographic");
-                    break;
                 case "Australia":
                     getStories("national-geographic");
                     break;

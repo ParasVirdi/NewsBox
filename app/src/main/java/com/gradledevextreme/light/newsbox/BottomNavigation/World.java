@@ -10,14 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.gradledevextreme.light.newsbox.Headlines.Business;
-import com.gradledevextreme.light.newsbox.Headlines.Entertainment;
-import com.gradledevextreme.light.newsbox.Headlines.Health;
-import com.gradledevextreme.light.newsbox.Headlines.Science;
-import com.gradledevextreme.light.newsbox.Headlines.Sports;
-import com.gradledevextreme.light.newsbox.Headlines.Technology;
-import com.gradledevextreme.light.newsbox.Headlines.TopStories;
 import com.gradledevextreme.light.newsbox.R;
+import com.gradledevextreme.light.newsbox.World.W_Business;
+import com.gradledevextreme.light.newsbox.World.W_Entertainment;
+import com.gradledevextreme.light.newsbox.World.W_Science;
+import com.gradledevextreme.light.newsbox.World.W_Sports;
+import com.gradledevextreme.light.newsbox.World.W_Technology;
+import com.gradledevextreme.light.newsbox.World.W_TopStories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Buzz extends Fragment {
+public class World extends Fragment {
 
 
 
@@ -36,7 +35,7 @@ public class Buzz extends Fragment {
 
 
 
-    public Buzz() {
+    public World() {
         // Required empty public constructor
     }
 
@@ -127,14 +126,13 @@ public class Buzz extends Fragment {
 
 
 
-        Buzz.ViewPagerAdapter adapter = new Buzz.ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new TopStories(), "Top Stories");
-        adapter.addFragment(new Business(), "Business");
-        adapter.addFragment(new Technology(), "Technology");
-        adapter.addFragment(new Entertainment(), "Entertainment");
-        adapter.addFragment(new Sports(), "Sports");
-        adapter.addFragment(new Science(), "Science");
-        adapter.addFragment(new Health(), "Health");
+        World.ViewPagerAdapter adapter = new World.ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new W_TopStories(), "Top Stories");
+        adapter.addFragment(new W_Business(), "Business");
+        adapter.addFragment(new W_Technology(), "Technology");
+        adapter.addFragment(new W_Entertainment(), "Entertainment");
+        adapter.addFragment(new W_Sports(), "Sports");
+        adapter.addFragment(new W_Science(), "Science");
 
 
 

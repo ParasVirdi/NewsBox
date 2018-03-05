@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox.Headlines;
+package com.gradledevextreme.light.newsbox.World;
 
 
 import android.content.Intent;
@@ -17,10 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
 import com.gradledevextreme.light.newsbox.Activities.LoginActivity;
-import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
+import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
+import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
 
 import org.json.JSONArray;
@@ -34,21 +34,19 @@ import java.util.ArrayList;
  */
 
 
-
-
-public class Sports extends Fragment {
+public class W_Science extends Fragment {
 
 
 
 
     private CustomAdapter adapter;
-    private RecyclerView sportsHeadlinesRecyclerView;
+    private RecyclerView scienceHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
 
 
 
 
-    public Sports() {
+    public W_Science() {
         // Required empty public constructor
     }
 
@@ -59,11 +57,7 @@ public class Sports extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =   inflater.inflate(R.layout.fragment_sports, container, false);
-        if(getActivity().getActionBar()!=null)
-            Toast.makeText(getContext(), getActivity().getActionBar().getTitle(), Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getContext(),"Action Bar Not found",Toast.LENGTH_SHORT).show();
+        View view =  inflater.inflate(R.layout.fragment_science, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location  = settings.getString("location","");
         //if we dont have any location india or world etc in locations
@@ -74,35 +68,20 @@ public class Sports extends Fragment {
         }else{
             arrayList = new ArrayList<>();
             adapter = new CustomAdapter(getContext(),arrayList);
-            sportsHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.sportsHeadlinesRecyclerView);
+            scienceHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.scienceHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-            sportsHeadlinesRecyclerView.setLayoutManager(layoutManager);
-            sportsHeadlinesRecyclerView.setAdapter(adapter);
+            scienceHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            scienceHeadlinesRecyclerView.setAdapter(adapter);
 
 
 
 
-            switch (location){
+            getStories("national-geographic");
 
-                case "India":
-                    getStories("espn-cric-info");
-                    break;
-                case "Australia":
-                    getStories("bbc-sport");
-                    break;
-                case "USA":
-                    getStories("bbc-sport");
-                    break;
-                case "UK":
-                    getStories("bbc-sport");
-                    break;
-                default:
-                    getStories("bbc-sport");
-                    break;
-            }
+
+
 
         }
-
 
 
 
@@ -135,9 +114,9 @@ public class Sports extends Fragment {
                     //now get every title etc from that array
                     JSONObject object1=null;
                     NewsModel model;
-                    for (int i=0;i<array.length();i++) {
+                    for (int i=0;i<array.length();i++){
                         model = new NewsModel();
-                        object1 = array.getJSONObject(i);
+                        object1 =  array.getJSONObject(i);
                         model.setTitle(object1.getString("title"));
                         model.setDescription(object1.getString("description"));
                         model.setAuthor(object1.getString("author"));
@@ -153,8 +132,10 @@ public class Sports extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
             }
         });
+
 
 
 

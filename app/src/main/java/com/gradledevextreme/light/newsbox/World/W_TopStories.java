@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox.Headlines;
+package com.gradledevextreme.light.newsbox.World;
 
 
 import android.content.Intent;
@@ -17,10 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
 import com.gradledevextreme.light.newsbox.Activities.LoginActivity;
-import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
+import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
+import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
 
 import org.json.JSONArray;
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 
 
-public class TopStories extends Fragment {
+public class W_TopStories extends Fragment {
 
 
 
@@ -50,7 +50,7 @@ public class TopStories extends Fragment {
 
 
 
-    public TopStories() {
+    public W_TopStories() {
         // Required empty public constructor
     }
 
@@ -84,24 +84,10 @@ public class TopStories extends Fragment {
 
 
 
-            switch (location){
+            getStories("bbc-news");
 
-                case "India":
-                    getStories("the-times-of-india");
-                    break;
-                case "Australia":
-                    getStories("abc-news-au");
-                    break;
-                case "USA":
-                    getStories("usa-today");
-                    break;
-                case "UK":
-                    getStories("the-guardian-uk");
-                    break;
-                default:
-                    getStories("bbc-news");
-                    break;
-            }
+
+
 
         }
 
@@ -109,6 +95,10 @@ public class TopStories extends Fragment {
 
 
         return view;
+
+
+
+
     }
 
 

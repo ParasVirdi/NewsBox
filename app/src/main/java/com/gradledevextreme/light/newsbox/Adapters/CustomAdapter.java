@@ -23,6 +23,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context context;
     private ArrayList<NewsModel> newsModelArrayList;
+
+
+
+
+
     public CustomAdapter(Context context, ArrayList<NewsModel> newsModelArrayList) {
         this.context = context;
         this.newsModelArrayList = newsModelArrayList;

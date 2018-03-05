@@ -3,7 +3,7 @@
 
 
     <item android:title="Settings">
-    <menu>
+     <menu>
         <item
             android:id="@+id/General"
             android:title="General " />
@@ -12,22 +12,14 @@
             android:title="Your Interests" />
         <item
             android:id="@+id/LanCountry"
-            android:title="Language and Country" />
-
-
-
+            android:title="Choose Country" />
     </menu>
-
-
     </item>
 
 
-         <item
-            android:id="@+id/savedarticles"
-            android:title="Saved Articles" />
-
-
-
+    <item
+        android:id="@+id/savedarticles"
+        android:title="Saved Articles" />
 
 
     <item android:title="Communicate">
@@ -40,5 +32,6 @@
                 android:title="Feedback/Request" />
         </menu>
     </item>
+
 
 </menu>

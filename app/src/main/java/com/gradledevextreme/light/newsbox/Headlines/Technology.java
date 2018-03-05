@@ -76,9 +76,6 @@ public class Technology extends Fragment {
                 case "India":
                     getStories("techradar");
                     break;
-                case "World":
-                    getStories("the-next-web");
-                    break;
                 case "Australia":
                     getStories("techcrunch");
                     break;

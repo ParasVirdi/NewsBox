@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.gradledevextreme.light.newsbox.Headlines.Business;
 import com.gradledevextreme.light.newsbox.Headlines.Entertainment;
-import com.gradledevextreme.light.newsbox.Headlines.Health;
 import com.gradledevextreme.light.newsbox.Headlines.Science;
 import com.gradledevextreme.light.newsbox.Headlines.Sports;
 import com.gradledevextreme.light.newsbox.Headlines.Technology;
@@ -129,7 +128,6 @@ public class HeadLines extends Fragment {
         adapter.addFragment(new Entertainment(), "Entertainment");
         adapter.addFragment(new Sports(), "Sports");
         adapter.addFragment(new Science(), "Science");
-        adapter.addFragment(new Health(), "Health");
 
 
 
