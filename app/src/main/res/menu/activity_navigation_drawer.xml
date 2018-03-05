@@ -5,9 +5,6 @@
     <item android:title="Settings">
      <menu>
         <item
-            android:id="@+id/General"
-            android:title="General " />
-        <item
             android:id="@+id/Yourinterest"
             android:title="Your Interests" />
         <item

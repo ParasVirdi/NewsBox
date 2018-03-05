@@ -82,7 +82,7 @@ public class W_Sports extends Fragment {
 
 
 
-            getStories("bbc-sport");
+            getStories("espn-cric-info");
 
 
 
@@ -109,7 +109,7 @@ public class W_Sports extends Fragment {
 
 
         //our url for news
-        String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=f0a8e39e08284cef8356cb917d4259b7";
+        String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
         StringRequest request = new StringRequest(Request.Method.GET, api, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

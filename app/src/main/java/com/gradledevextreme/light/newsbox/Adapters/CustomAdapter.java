@@ -1,14 +1,24 @@
 package com.gradledevextreme.light.newsbox.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
 import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
+import com.gradledevextreme.light.newsbox.WebView.WebView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -21,15 +31,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
 
-    private Context context;
-    private ArrayList<NewsModel> newsModelArrayList;
+    private static Context mContext;
+    private static ArrayList<NewsModel> newsModelArrayList;
 
 
 
 
-
-    public CustomAdapter(Context context, ArrayList<NewsModel> newsModelArrayList) {
-        this.context = context;
+     public CustomAdapter(Context context, ArrayList<NewsModel> newsModelArrayList) {
+        this.mContext = context;
         this.newsModelArrayList = newsModelArrayList;
     }
 
@@ -39,7 +48,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row,parent,false);
-
         return new CustomAdapter.MyViewHolder(itemView);
     }
 
@@ -56,6 +64,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.titleTextView.setText(model.getTitle());
         holder.descriptionTextView.setText(model.getDescription());
         holder.publishedAtTextView.setText(model.getPublishedAt());
+        Picasso.with(mContext).load(model.getUrlToImage()).fit()
+                .centerCrop().into(holder.newsImage);
+
     }
 
 
@@ -65,14 +76,34 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public int getItemCount() {
         return newsModelArrayList.size();
     }
-    class MyViewHolder extends RecyclerView.ViewHolder{
+
+
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView titleTextView,authorTextView,descriptionTextView,publishedAtTextView;
+        private ImageView newsImage;
         public MyViewHolder(View itemView) {
             super(itemView);
             titleTextView = (TextView)itemView.findViewById(R.id.titleTextView);
             authorTextView = (TextView)itemView.findViewById(R.id.authorTextView);
             descriptionTextView = (TextView)itemView.findViewById(R.id.descriptionTextView);
             publishedAtTextView = (TextView)itemView.findViewById(R.id.publishedAtTextView);
+            newsImage =(ImageView) itemView.findViewById(R.id.newsImage);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            NewsModel model = newsModelArrayList.get(this.getPosition());
+            Intent nextWebView = new Intent(mContext,WebView.class);
+            WebView.mUrl = model.getUrl().toString();
+            mContext.startActivity(nextWebView);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            return false;
         }
     }
 

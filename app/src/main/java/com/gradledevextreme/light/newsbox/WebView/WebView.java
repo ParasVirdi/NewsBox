@@ -1,6 +1,7 @@
 package com.gradledevextreme.light.newsbox.WebView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,17 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import android.widget.Toast;
-
 import com.gradledevextreme.light.newsbox.R;
-
 import im.delight.android.webview.AdvancedWebView;
 
-public class WebView extends AppCompatActivity implements AdvancedWebView.Listener {
+public class WebView extends AppCompatActivity implements AdvancedWebView.Listener{
 
 
 
 
     private AdvancedWebView mWebView;
+    public static String mUrl ;
 
 
 
@@ -38,9 +38,8 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 
 
 
-
         mWebView.addHttpHeader("X-Requested-With", "");
-       // mWebView.loadUrl(TEST_PAGE_URL);
+        mWebView.loadUrl(mUrl);
     }
 
 
@@ -103,6 +102,7 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
         mWebView.setVisibility(View.INVISIBLE);
+
     }
 
 

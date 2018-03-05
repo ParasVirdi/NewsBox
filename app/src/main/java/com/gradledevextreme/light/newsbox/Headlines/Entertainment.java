@@ -65,6 +65,7 @@ public class Entertainment extends Fragment {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             entertainmentHeadlinesRecyclerView.setLayoutManager(layoutManager);
             entertainmentHeadlinesRecyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
 
 
@@ -104,7 +105,7 @@ public class Entertainment extends Fragment {
 
 
         //our url for news
-        String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=f0a8e39e08284cef8356cb917d4259b7";
+        String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
         StringRequest request = new StringRequest(Request.Method.GET, api, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

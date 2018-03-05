@@ -35,7 +35,7 @@ import com.gradledevextreme.light.newsbox.BottomNavigation.World;
 import com.gradledevextreme.light.newsbox.BottomNavigation.ForYou;
 import com.gradledevextreme.light.newsbox.BottomNavigation.HeadLines;
 import com.gradledevextreme.light.newsbox.Fragment_main;
-import com.gradledevextreme.light.newsbox.Headlines.TopStories;
+import com.gradledevextreme.light.newsbox.Interests;
 import com.gradledevextreme.light.newsbox.R;
 
 
@@ -300,9 +300,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.General) {
-            // Handle the camera action
-        } else if (id == R.id.Yourinterest) {
+       if (id == R.id.Yourinterest) {
+
+
+
+           Intent i = new Intent(NavigationActivity.this, Interests.class);
+           startActivity(i);
 
         } else if (id == R.id.LanCountry) {
 
