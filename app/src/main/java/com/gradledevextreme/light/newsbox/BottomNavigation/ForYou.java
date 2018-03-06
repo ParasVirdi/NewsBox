@@ -1,6 +1,7 @@
 package com.gradledevextreme.light.newsbox.BottomNavigation;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,11 +37,9 @@ import java.util.ArrayList;
 public class ForYou extends Fragment {
 
 
-
-
     private CustomAdapter adapter;
-    public  ArrayList<String> mPreferences = new ArrayList<>();
-
+    public String mPreferences;
+    public ProgressDialog progressDialog;
 
 
     public ForYou() {
@@ -48,54 +47,47 @@ public class ForYou extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_for_you, container, false);
+        View view = inflater.inflate(R.layout.fragment_for_you, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
-        String location  = settings.getString("location","");
+        String location = settings.getString("location", "");
+
+
         mPreferences = Interests.mArr;
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Buffering...");
+        progressDialog.show();
+
         //if we dont have any location india or world etc in locations
-        if(location.equals("")){
+        if (location.equals("")) {
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
-        }else{
+        } else {
             ArrayList<NewsModel> arrayList = new ArrayList<>();
             adapter = new CustomAdapter(getContext(), arrayList);
             RecyclerView entertainmentHeadlinesRecyclerView = view.findViewById(R.id.entertainmentHeadlinesRecyclerView);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             entertainmentHeadlinesRecyclerView.setLayoutManager(layoutManager);
             entertainmentHeadlinesRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
 
-
-
-
-            for(int i = 0 ; i <mPreferences.size() ; i++)
-            {
-                if(mPreferences!=null){
-                getStories(mPreferences.get(i));}
-            }
+            getStories(mPreferences);
         }
         return view;
     }
 
 
-
-
-    public void getStories(String newspaper){
-
-
+    public void getStories(String newspaper) {
 
 
         //our url for news
         String api = "https://newsapi.org/v2/everything?" +
-                "q="+newspaper+"&" +
+                "q=" + newspaper + "&" +
                 "from=2018-03-05&" +
                 "sortBy=popularity&" +
                 "apiKey=7eb605a354634012a3946004936e71cc";
@@ -108,11 +100,11 @@ public class ForYou extends Fragment {
                     //get json array from it
                     JSONArray array = object.getJSONArray("articles");
                     //now get every title etc from that array
-                    JSONObject object1=null;
+                    JSONObject object1 = null;
                     NewsModel model;
-                    for (int i=0;i<array.length();i++){
+                    for (int i = 0; i < array.length(); i++) {
                         model = new NewsModel();
-                        object1 =  array.getJSONObject(i);
+                        object1 = array.getJSONObject(i);
                         model.setTitle(object1.getString("title"));
                         model.setDescription(object1.getString("description"));
                         model.setAuthor(object1.getString("author"));
@@ -120,6 +112,7 @@ public class ForYou extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
+                        progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -132,16 +125,10 @@ public class ForYou extends Fragment {
         });
 
 
-
-
-
         Volley.newRequestQueue(getContext()).add(request);
 
 
-
-
     }
-
 
 
 }

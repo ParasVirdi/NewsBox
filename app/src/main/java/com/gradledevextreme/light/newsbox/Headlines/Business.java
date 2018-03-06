@@ -1,6 +1,7 @@
 package com.gradledevextreme.light.newsbox.Headlines;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class Business extends Fragment {
     private CustomAdapter adapter;
     private RecyclerView buisnessHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
+    private ProgressDialog progressDialog ;
 
 
 
@@ -69,6 +71,13 @@ public class Business extends Fragment {
 
 
 
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Buffering data from servers...");
+        progressDialog.show();
+
+
+
+
         //if we dont have any location india or world etc in locations
         if(location.equals("")){
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
@@ -80,6 +89,9 @@ public class Business extends Fragment {
             buisnessHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.buisnessHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             buisnessHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            buisnessHeadlinesRecyclerView.setItemViewCacheSize(20);
+            buisnessHeadlinesRecyclerView.setDrawingCacheEnabled(true);
+            buisnessHeadlinesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             buisnessHeadlinesRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -138,6 +150,7 @@ public class Business extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
+                        progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

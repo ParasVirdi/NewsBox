@@ -1,9 +1,11 @@
 package com.gradledevextreme.light.newsbox.Activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,10 +40,10 @@ import com.gradledevextreme.light.newsbox.Fragment_main;
 import com.gradledevextreme.light.newsbox.Interests;
 import com.gradledevextreme.light.newsbox.R;
 
+import java.net.InetAddress;
+
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
 
 
     private Toolbar toolbar;
@@ -55,17 +57,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private SharedPreferences.Editor editor;
     public static final String PREFS_NAME = "MyPrefsFile";
     private SharedPreferences settings;
-    private String countryNames[] = {"Choose your Country","India","Australia","Uk","USA"};
-
-
+    private String countryNames[] = {"Choose your Country", "India", "Australia", "Uk", "USA"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-
 
 
         // to remove status bar
@@ -76,15 +74,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         setSupportActionBar(toolbar);
 
 
-
-
         // to add shared preferences variable
         settings = getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         editor = settings.edit();
         editor.putBoolean("hasLoggedIn", true);
         editor.putBoolean("hasSign", true);
         //Done by anshuman for default  pref India
-        editor.putString("location","India");
+        editor.putString("location", "India");
         editor.apply();
 
 
@@ -95,16 +91,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-
-
         //fragment
         Fragment_main fragment = new Fragment_main();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
-
-
 
 
         //Declaration
@@ -115,16 +107,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         emailheader = (TextView) hView.findViewById(R.id.mEmail);
 
 
-
-
         //To open Fragment when activty is created
-        HeadLines frag  = new HeadLines();
+        HeadLines frag = new HeadLines();
         android.support.v4.app.FragmentTransaction fragmentTransactio =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransactio.replace(R.id.fragment_main, frag);
         fragmentTransactio.commit();
-
-
 
 
         //mauth listerner
@@ -148,15 +136,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         };
 
 
-
-
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
-
 
 
         googleApiClient = new GoogleApiClient
@@ -171,9 +155,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 .build();
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -181,12 +162,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
 
-
-
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-
 
 
     @Override
@@ -194,8 +171,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         mAuth.addAuthStateListener(authStateListener);
         super.onStart();
     }
-
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -232,15 +207,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     return true;
 
 
-
-
             }
             return false;
         }
 
     };
-
-
 
 
     @Override
@@ -254,16 +225,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
-
-
 
 
     @Override
@@ -293,44 +260,38 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
 
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-       if (id == R.id.Yourinterest) {
+        if (id == R.id.Yourinterest) {
 
 
-
-           Intent i = new Intent(NavigationActivity.this, Interests.class);
-           startActivity(i);
+            Intent i = new Intent(NavigationActivity.this, Interests.class);
+            startActivity(i);
 
         } else if (id == R.id.LanCountry) {
 
 
-
-
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(NavigationActivity.this);
-            View mView = getLayoutInflater().inflate(R.layout.countryspinner,null);
+            View mView = getLayoutInflater().inflate(R.layout.countryspinner, null);
             mBuilder.setTitle("Choose Country");
-            final Spinner mSpinner = (Spinner)mView.findViewById(R.id.spinner);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(NavigationActivity.this,android.R.layout.simple_spinner_dropdown_item,
+            final Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(NavigationActivity.this, android.R.layout.simple_spinner_dropdown_item,
                     countryNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinner.setAdapter(adapter);
 
 
-
-
             mBuilder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if(!mSpinner.getSelectedItem().toString().equalsIgnoreCase("Please select your Country"));
-                    editor.putString("location",mSpinner.getSelectedItem().toString());
+                    if (!mSpinner.getSelectedItem().toString().equalsIgnoreCase("Please select your Country"))
+                        ;
+                    editor.putString("location", mSpinner.getSelectedItem().toString());
                     editor.apply();
-                    Toast.makeText(NavigationActivity.this, mSpinner.getSelectedItem().toString() +" selected as a country"
+                    Toast.makeText(NavigationActivity.this, mSpinner.getSelectedItem().toString() + " selected as a country"
                             , Toast.LENGTH_SHORT).show();
 
                     //logic for array replace
@@ -340,7 +301,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                   dialogInterface.dismiss();
+                    dialogInterface.dismiss();
                 }
             });
             mBuilder.setView(mView);
@@ -348,13 +309,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             dialog.show();
 
 
-
-
         } else if (id == R.id.savedarticles) {
 
         } else if (id == R.id.nav_share) {
-
-
 
 
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -365,11 +322,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
 
-
-
         } else if (id == R.id.FE) {
-
-
 
 
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -384,11 +337,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             }
 
 
-
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

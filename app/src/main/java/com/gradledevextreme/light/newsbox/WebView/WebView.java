@@ -19,6 +19,7 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 
     private AdvancedWebView mWebView;
     public static String mUrl ;
+    private ProgressDialog progressDialog;
 
 
 
@@ -30,6 +31,9 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 
 
         mWebView = (AdvancedWebView) findViewById(R.id.webview);
+        progressDialog = new ProgressDialog(WebView.this);
+        progressDialog.setMessage("Buffering...");
+        progressDialog.show();
         mWebView.setListener(this, this);
         mWebView.setGeolocationEnabled(false);
         mWebView.setMixedContentAllowed(true);
@@ -50,6 +54,8 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     protected void onResume() {
         super.onResume();
         mWebView.onResume();
+        progressDialog.show();
+
         // ...
     }
 
@@ -81,6 +87,7 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         mWebView.onActivityResult(requestCode, resultCode, intent);
+
         // ...
     }
 
@@ -111,6 +118,7 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 
     @Override
     public void onPageFinished(String url) {
+        progressDialog.dismiss();
         mWebView.setVisibility(View.VISIBLE);
     }
 

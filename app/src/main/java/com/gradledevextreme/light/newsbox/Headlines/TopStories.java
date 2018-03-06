@@ -1,10 +1,13 @@
 package com.gradledevextreme.light.newsbox.Headlines;
 
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,6 +49,8 @@ public class TopStories extends Fragment {
     private CustomAdapter adapter;
     private RecyclerView trendingHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
+    private ProgressDialog progressDialog ;
+
 
 
 
@@ -68,6 +73,16 @@ public class TopStories extends Fragment {
         View view = inflater.inflate(R.layout.fragment_trending, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location  = settings.getString("location","");
+
+
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Buffering data from servers...");
+        progressDialog.show();
+
+
+
+
         //if we dont have any location india or world etc in locations
         if(location.equals("")){
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
@@ -79,6 +94,9 @@ public class TopStories extends Fragment {
             trendingHeadlinesRecyclerView = view.findViewById(R.id.trendingHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             trendingHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            trendingHeadlinesRecyclerView.setItemViewCacheSize(20);
+            trendingHeadlinesRecyclerView.setDrawingCacheEnabled(true);
+            trendingHeadlinesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             trendingHeadlinesRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -142,6 +160,7 @@ public class TopStories extends Fragment {
                          model.setUrlToImage(object1.getString("urlToImage"));
                          model.setPublishedAt(object1.getString("publishedAt"));
                          adapter.addItem(model);
+                         progressDialog.dismiss();
                      }
                  } catch (JSONException e) {
                      e.printStackTrace();
@@ -151,7 +170,30 @@ public class TopStories extends Fragment {
              @Override
              public void onErrorResponse(VolleyError error) {
                  Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+
+
+
+
+                 progressDialog.dismiss();
+
+
+
+
+                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                 builder1.setMessage("Check Internet Connectivity...");
+                 builder1.setCancelable(true);
+                 builder1.setPositiveButton(
+                         "Cancel",
+                         new DialogInterface.OnClickListener() {
+                             public void onClick(DialogInterface dialog, int id) {
+                                 dialog.cancel();
+                             }
+                         });
+
+                 AlertDialog alert11 = builder1.create();
+                 alert11.show();
              }
+
          });
 
 

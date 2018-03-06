@@ -1,6 +1,7 @@
 package com.gradledevextreme.light.newsbox.Headlines;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,6 +36,10 @@ public class Entertainment extends Fragment {
 
 
     private CustomAdapter adapter;
+    private ProgressDialog progressDialog ;
+    private RecyclerView entertainmentHeadlinesRecyclerView;
+    private ArrayList<NewsModel> arrayList;
+
 
 
 
@@ -53,6 +58,16 @@ public class Entertainment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_entertainment, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location  = settings.getString("location","");
+
+
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Buffering data from servers...");
+        progressDialog.show();
+
+
+
+
         //if we dont have any location india or world etc in locations
         if(location.equals("")){
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
@@ -64,6 +79,9 @@ public class Entertainment extends Fragment {
             RecyclerView entertainmentHeadlinesRecyclerView = view.findViewById(R.id.entertainmentHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             entertainmentHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            entertainmentHeadlinesRecyclerView.setItemViewCacheSize(20);
+            entertainmentHeadlinesRecyclerView.setDrawingCacheEnabled(true);
+            entertainmentHeadlinesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             entertainmentHeadlinesRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -127,6 +145,7 @@ public class Entertainment extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
+                        progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

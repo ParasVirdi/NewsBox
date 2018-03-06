@@ -1,6 +1,7 @@
 package com.gradledevextreme.light.newsbox.World;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class W_Science extends Fragment {
     private CustomAdapter adapter;
     private RecyclerView scienceHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
+    private ProgressDialog progressDialog ;
 
 
 
@@ -60,6 +62,17 @@ public class W_Science extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_science, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location  = settings.getString("location","");
+
+
+
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Buffering data from servers...");
+        progressDialog.show();
+
+
+
+
         //if we dont have any location india or world etc in locations
         if(location.equals("")){
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
@@ -71,7 +84,11 @@ public class W_Science extends Fragment {
             scienceHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.scienceHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             scienceHeadlinesRecyclerView.setLayoutManager(layoutManager);
+            scienceHeadlinesRecyclerView.setItemViewCacheSize(20);
+            scienceHeadlinesRecyclerView.setDrawingCacheEnabled(true);
+            scienceHeadlinesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             scienceHeadlinesRecyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
 
 
@@ -124,6 +141,7 @@ public class W_Science extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
+                        progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

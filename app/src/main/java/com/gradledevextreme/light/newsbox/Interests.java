@@ -13,7 +13,7 @@ public class Interests extends AppCompatActivity {
 
 
     private EditText mKeywords;
-    public static ArrayList<String> mArr;
+    public static String mArr;
     private Button mAdd;
 
 
@@ -23,17 +23,17 @@ public class Interests extends AppCompatActivity {
         setContentView(R.layout.activity_interests);
 
 
-        mArr = new ArrayList<>();
+
+        mKeywords = (EditText)findViewById(R.id.keywords);
         mAdd = (Button) findViewById(R.id.add);
+
+
 
 
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mKeywords = (EditText) findViewById(R.id.keywords);
-                if (mKeywords.getText() != null) {
-                    mArr.add(mKeywords.getText().toString());
-                }
+               mArr = mKeywords.getText().toString();
             }
         });
     }
