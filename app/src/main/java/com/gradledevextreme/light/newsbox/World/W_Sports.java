@@ -42,6 +42,7 @@ public class W_Sports extends Fragment {
     private RecyclerView sportsHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
     private ProgressDialog progressDialog;
+    private boolean value =true;
 
 
     public W_Sports() {
@@ -64,7 +65,9 @@ public class W_Sports extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Buffering data from servers...");
-        progressDialog.show();
+        if(value) {
+            progressDialog.show();
+        }
 
 
         //if we dont have any location india or world etc in locations
@@ -123,8 +126,10 @@ public class W_Sports extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        progressDialog.dismiss();
-                    }
+                        if(value) {
+                            progressDialog.dismiss();
+                            value = false;
+                        }                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

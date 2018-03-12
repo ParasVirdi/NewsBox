@@ -43,6 +43,7 @@ public class W_Business extends Fragment {
     private RecyclerView buisnessHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
     private ProgressDialog progressDialog;
+    private boolean value = true;
 
 
     public W_Business() {
@@ -63,8 +64,9 @@ public class W_Business extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Buffering data from servers...");
-        progressDialog.show();
-
+        if (value) {
+            progressDialog.show();
+        }
 
         //if we dont have any location india or world etc in locations
         if (location.equals("")) {
@@ -118,7 +120,10 @@ public class W_Business extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        progressDialog.dismiss();
+                        if(value) {
+                            progressDialog.dismiss();
+                            value = false;
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

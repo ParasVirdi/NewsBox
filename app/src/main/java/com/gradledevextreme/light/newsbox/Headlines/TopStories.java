@@ -46,6 +46,7 @@ public class TopStories extends Fragment {
     private RecyclerView trendingHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
     private ProgressDialog progressDialog;
+    private boolean value = true;
 
 
     public TopStories() {
@@ -66,8 +67,9 @@ public class TopStories extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Buffering data from servers...");
-        progressDialog.show();
-
+        if (value) {
+            progressDialog.show();
+        }
 
         //if we dont have any location india or world etc in locations
         if (location.equals("")) {
@@ -139,7 +141,11 @@ public class TopStories extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        progressDialog.dismiss();
+                        if(value)
+                        {
+                            progressDialog.dismiss();
+                            value = false;
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

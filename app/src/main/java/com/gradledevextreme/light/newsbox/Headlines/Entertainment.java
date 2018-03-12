@@ -38,6 +38,7 @@ public class Entertainment extends Fragment {
     private ProgressDialog progressDialog;
     private RecyclerView entertainmentHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
+    private boolean value = true;
 
 
     public Entertainment() {
@@ -56,7 +57,9 @@ public class Entertainment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Buffering data from servers...");
-        progressDialog.show();
+        if (value) {
+            progressDialog.show();
+        }
 
 
         //if we dont have any location india or world etc in locations
@@ -128,7 +131,10 @@ public class Entertainment extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        progressDialog.dismiss();
+                        if (value) {
+                            progressDialog.show();
+                            value = false;
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

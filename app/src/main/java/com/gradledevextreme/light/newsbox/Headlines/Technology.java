@@ -39,6 +39,7 @@ public class Technology extends Fragment {
     private RecyclerView technologyHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
     private ProgressDialog progressDialog;
+    private boolean value = true;
 
 
     public Technology() {
@@ -60,7 +61,8 @@ public class Technology extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Buffering data from servers...");
-        progressDialog.show();
+        if(value){
+        progressDialog.show();}
 
 
         //if we dont have any location india or world etc in locations
@@ -135,7 +137,9 @@ public class Technology extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
+                        if(value){
                         progressDialog.dismiss();
+                        value = false;}
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
