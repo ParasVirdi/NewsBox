@@ -3,6 +3,8 @@ package com.gradledevextreme.light.newsbox.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,9 @@ import com.gradledevextreme.light.newsbox.R;
 import com.gradledevextreme.light.newsbox.WebView.WebView;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -29,47 +34,55 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
 
-
-
     private static Context mContext;
     private static ArrayList<NewsModel> newsModelArrayList;
+    private URL url;
 
 
-
-
-     public CustomAdapter(Context context, ArrayList<NewsModel> newsModelArrayList) {
+    public CustomAdapter(Context context, ArrayList<NewsModel> newsModelArrayList) {
         this.mContext = context;
         this.newsModelArrayList = newsModelArrayList;
     }
 
 
-
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row, parent, false);
         return new CustomAdapter.MyViewHolder(itemView);
     }
-
-
 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         NewsModel model = newsModelArrayList.get(position);
-        if(model.getAuthor().equals("null")){
-        }else{
+        if (model.getAuthor().equals("null")) {
+        } else {
             holder.authorTextView.setText(model.getAuthor());
         }
         holder.titleTextView.setText(model.getTitle());
         holder.descriptionTextView.setText(model.getDescription());
         holder.publishedAtTextView.setText(model.getPublishedAt());
+
+
+        //to load images in recycler view without piccaso
+//        try {
+//             url = new URL(model.getUrlToImage().toString());
+//        } catch (MalformedURLException e) {
+//            System.out.println("The URL is not valid.");
+//            System.out.println(e.getMessage());
+//        }
+//
+//        try {
+//            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//        }catch(IOException e)
+//        {e.printStackTrace();}
+//        holder.newsImage.setImageBitmap(bmp);
+
+
         Picasso.with(mContext).load(model.getUrlToImage()).fit()
                 .centerCrop().into(holder.newsImage);
 
     }
-
-
 
 
     @Override
@@ -78,25 +91,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
 
-
-
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private TextView titleTextView,authorTextView,descriptionTextView,publishedAtTextView;
+        private TextView titleTextView, authorTextView, descriptionTextView, publishedAtTextView;
         private ImageView newsImage;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            titleTextView = (TextView)itemView.findViewById(R.id.titleTextView);
-            authorTextView = (TextView)itemView.findViewById(R.id.authorTextView);
-            descriptionTextView = (TextView)itemView.findViewById(R.id.descriptionTextView);
-            publishedAtTextView = (TextView)itemView.findViewById(R.id.publishedAtTextView);
-            newsImage =(ImageView) itemView.findViewById(R.id.newsImage);
+            titleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
+            authorTextView = (TextView) itemView.findViewById(R.id.authorTextView);
+            descriptionTextView = (TextView) itemView.findViewById(R.id.descriptionTextView);
+            publishedAtTextView = (TextView) itemView.findViewById(R.id.publishedAtTextView);
+            newsImage = (ImageView) itemView.findViewById(R.id.newsImage);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             NewsModel model = newsModelArrayList.get(this.getPosition());
-            Intent nextWebView = new Intent(mContext,WebView.class);
+            Intent nextWebView = new Intent(mContext, WebView.class);
             WebView.mUrl = model.getUrl().toString();
             mContext.startActivity(nextWebView);
         }
@@ -108,10 +120,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
 
-
-
-    public void addItem(NewsModel model){
-        newsModelArrayList.add(0,model);
-        notifyItemRangeChanged(0,getItemCount());
+    public void addItem(NewsModel model) {
+        newsModelArrayList.add(0, model);
+        notifyItemRangeChanged(0, getItemCount());
     }
 }

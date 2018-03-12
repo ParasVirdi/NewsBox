@@ -28,12 +28,8 @@ import java.util.List;
 public class HeadLines extends Fragment {
 
 
-
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
-
 
 
     public HeadLines() {
@@ -41,19 +37,13 @@ public class HeadLines extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_head_lines, null);
-
-
 
 
         //Declaration of view pager
@@ -61,13 +51,9 @@ public class HeadLines extends Fragment {
         setupViewPager(viewPager);
 
 
-
-
         //tablayout declaration
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-
 
 
         // Inflate the layout for this fragment
@@ -75,20 +61,15 @@ public class HeadLines extends Fragment {
     }
 
 
-
-
     class ViewPagerAdapter extends FragmentPagerAdapter {
-
-
 
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
-
-
 
 
         @Override
@@ -97,18 +78,15 @@ public class HeadLines extends Fragment {
         }
 
 
-
-
         @Override
         public int getCount() {
             return mFragmentList.size();
         }
+
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
-
-
 
 
         @Override
@@ -116,8 +94,6 @@ public class HeadLines extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
-
 
 
     private void setupViewPager(ViewPager viewPager) {
@@ -130,11 +106,7 @@ public class HeadLines extends Fragment {
         adapter.addFragment(new Science(), "Science");
 
 
-
-
         viewPager.setAdapter(adapter);
-
-
 
 
     }

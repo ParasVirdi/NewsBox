@@ -23,17 +23,14 @@ public class Interests extends AppCompatActivity {
         setContentView(R.layout.activity_interests);
 
 
-
-        mKeywords = (EditText)findViewById(R.id.keywords);
+        mKeywords = (EditText) findViewById(R.id.keywords);
         mAdd = (Button) findViewById(R.id.add);
-
-
 
 
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               mArr = mKeywords.getText().toString();
+                mArr = mKeywords.getText().toString();
             }
         });
     }

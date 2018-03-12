@@ -39,14 +39,10 @@ import java.util.regex.Pattern;
 public class Business extends Fragment {
 
 
-
-
     private CustomAdapter adapter;
     private RecyclerView buisnessHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
-    private ProgressDialog progressDialog ;
-
-
+    private ProgressDialog progressDialog;
 
 
     public Business() {
@@ -54,21 +50,15 @@ public class Business extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-
-
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_business, container, false);
+        View view = inflater.inflate(R.layout.fragment_business, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
-        String location  = settings.getString("location","");
-
-
+        String location = settings.getString("location", "");
 
 
         progressDialog = new ProgressDialog(getActivity());
@@ -76,18 +66,16 @@ public class Business extends Fragment {
         progressDialog.show();
 
 
-
-
         //if we dont have any location india or world etc in locations
-        if(location.equals("")){
+        if (location.equals("")) {
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
-        }else{
+        } else {
             arrayList = new ArrayList<>();
-            adapter = new CustomAdapter(getContext(),arrayList);
-            buisnessHeadlinesRecyclerView = (RecyclerView)view.findViewById(R.id.buisnessHeadlinesRecyclerView);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+            adapter = new CustomAdapter(getContext(), arrayList);
+            buisnessHeadlinesRecyclerView = (RecyclerView) view.findViewById(R.id.buisnessHeadlinesRecyclerView);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             buisnessHeadlinesRecyclerView.setLayoutManager(layoutManager);
             buisnessHeadlinesRecyclerView.setItemViewCacheSize(20);
             buisnessHeadlinesRecyclerView.setDrawingCacheEnabled(true);
@@ -96,8 +84,7 @@ public class Business extends Fragment {
             adapter.notifyDataSetChanged();
 
 
-
-            switch (location){
+            switch (location) {
 
                 case "India":
                     getStories("financial-times");
@@ -120,15 +107,11 @@ public class Business extends Fragment {
     }
 
 
-
-
-    public void getStories(String newspaper){
-
-
+    public void getStories(String newspaper) {
 
 
         //our url for news
-        String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
+        String api = "https://newsapi.org/v1/articles?source=" + newspaper + "&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
         StringRequest request = new StringRequest(Request.Method.GET, api, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -138,11 +121,11 @@ public class Business extends Fragment {
                     //get json array from it
                     JSONArray array = object.getJSONArray("articles");
                     //now get every title etc from that array
-                    JSONObject object1=null;
+                    JSONObject object1 = null;
                     NewsModel model;
-                    for (int i=0;i<array.length();i++){
+                    for (int i = 0; i < array.length(); i++) {
                         model = new NewsModel();
-                        object1 =  array.getJSONObject(i);
+                        object1 = array.getJSONObject(i);
                         model.setTitle(object1.getString("title"));
                         model.setDescription(object1.getString("description"));
                         model.setAuthor(object1.getString("author"));
@@ -163,36 +146,27 @@ public class Business extends Fragment {
         });
 
 
-
-
         Volley.newRequestQueue(getContext()).add(request);
-
-
 
 
     }
 
 
-
-
-    public void getNewsForIndia(){
-
-
+    public void getNewsForIndia() {
 
 
         String url = "http://www.thehindu.com/todays-paper/tp-business/";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.v("response",response);
+                Log.v("response", response);
                 String[] split = response.split("<ul class=\"archive-list\">");
                 Pattern pattern = Pattern.compile(">(.*?)<");
                 Matcher matcher = pattern.matcher(split[1]);
-                if (matcher.find())
-                {
-                    Log.v("matcher",matcher.group(1));
-                }else{
-                    Log.v("not","found");
+                if (matcher.find()) {
+                    Log.v("matcher", matcher.group(1));
+                } else {
+                    Log.v("not", "found");
                 }
             }
         }, new Response.ErrorListener() {
@@ -202,11 +176,7 @@ public class Business extends Fragment {
         });
 
 
-
-
         Volley.newRequestQueue(getContext()).add(request);
-
-
 
 
     }

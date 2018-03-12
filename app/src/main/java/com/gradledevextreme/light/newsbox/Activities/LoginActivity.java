@@ -32,8 +32,6 @@ import com.gradledevextreme.light.newsbox.R;
 public class LoginActivity extends AppCompatActivity {
 
 
-
-
     private FirebaseAuth mAuth;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
@@ -47,21 +45,15 @@ public class LoginActivity extends AppCompatActivity {
     private Button getStarted;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
-
         setContentView(R.layout.activity_login);
 
 
-
-
-        logoImage= (ImageView) findViewById(R.id.logoImage);
+        logoImage = (ImageView) findViewById(R.id.logoImage);
         newsBox = (TextView) findViewById(R.id.logotext);
         welcomeText = (TextView) findViewById(R.id.welcomeText);
         getStarted = (Button) findViewById(R.id.getstarted);
@@ -70,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         prog.setMessage("Logging in...");
         prog.setIndeterminate(true);
         prog.setCanceledOnTouchOutside(false);
-
-
 
 
         //set Alpha Animation
@@ -84,14 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         logoImage.startAnimation(animation);
 
 
-
-
         //to set typeface
         Typeface type = Typeface.createFromAsset(getAssets(), "creation.ttf");
         newsBox.setTypeface(type);
         welcomeText.setTypeface(type);
-
-
 
 
         //on click listener on get started
@@ -105,12 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
         //Firebase authentication
         mAuth = FirebaseAuth.getInstance();
-
-
 
 
         //shared preferences for one time login
@@ -121,9 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-
-
-         googleSignInOptions = new GoogleSignInOptions
+        googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -140,8 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
 
-
-
         signbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,16 +131,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     //GOOGLE sign IN
     private void mSignIn() {
         Intent i = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(i, REQ_CODE);
 
     }
-
-
 
 
     // to get result after sign in method
@@ -181,8 +155,6 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
-
-
 
 
     // to run firebaseAuth with google
@@ -209,8 +181,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     public void gotomain() {
 
         Intent registerActivity = new Intent(LoginActivity.this, NavigationActivity.class);
@@ -219,8 +189,6 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
 
     }
-
-
 
 
 }

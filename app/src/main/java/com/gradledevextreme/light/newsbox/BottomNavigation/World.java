@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.gradledevextreme.light.newsbox.R;
 import com.gradledevextreme.light.newsbox.World.W_Business;
 import com.gradledevextreme.light.newsbox.World.W_Entertainment;
@@ -27,19 +28,13 @@ import java.util.List;
 public class World extends Fragment {
 
 
-
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
-
 
 
     public World() {
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -49,14 +44,9 @@ public class World extends Fragment {
         View view = inflater.inflate(R.layout.fragment_head_lines, null);
 
 
-
-
         //Declaration of view pager
         viewPager = (ViewPager) view.findViewById(R.id.vpPager);
         setupViewPager(viewPager);
-
-
-
 
 
         //tablayout declaration
@@ -64,35 +54,26 @@ public class World extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
-
         // Inflate the layout for this fragment
         return view;
     }
 
 
-
-
     class ViewPagerAdapter extends FragmentPagerAdapter {
-
-
 
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
-
-
 
 
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);
         }
-
-
 
 
         @Override
@@ -106,24 +87,16 @@ public class World extends Fragment {
         }
 
 
-
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
 
 
-
-
     }
 
 
-
-
     private void setupViewPager(ViewPager viewPager) {
-
-
 
 
         World.ViewPagerAdapter adapter = new World.ViewPagerAdapter(getChildFragmentManager());
@@ -135,11 +108,7 @@ public class World extends Fragment {
         adapter.addFragment(new W_Science(), "Science");
 
 
-
-
         viewPager.setAdapter(adapter);
-
-
 
 
     }

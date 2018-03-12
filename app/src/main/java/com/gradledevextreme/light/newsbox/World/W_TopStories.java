@@ -39,19 +39,13 @@ import java.util.ArrayList;
  */
 
 
-
-
 public class W_TopStories extends Fragment {
-
-
 
 
     private CustomAdapter adapter;
     private RecyclerView trendingHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
-    private ProgressDialog progressDialog ;
-
-
+    private ProgressDialog progressDialog;
 
 
     public W_TopStories() {
@@ -59,20 +53,15 @@ public class W_TopStories extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trending, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
-        String location  = settings.getString("location","");
-
+        String location = settings.getString("location", "");
 
 
         progressDialog = new ProgressDialog(getActivity());
@@ -80,17 +69,16 @@ public class W_TopStories extends Fragment {
         progressDialog.show();
 
 
-
         //if we dont have any location india or world etc in locations
-        if(location.equals("")){
+        if (location.equals("")) {
             Toast.makeText(getContext(), "Location not found", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
-        }else{
+        } else {
             arrayList = new ArrayList<>();
-            adapter = new CustomAdapter(getContext(),arrayList);
+            adapter = new CustomAdapter(getContext(), arrayList);
             trendingHeadlinesRecyclerView = view.findViewById(R.id.trendingHeadlinesRecyclerView);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             trendingHeadlinesRecyclerView.setLayoutManager(layoutManager);
             trendingHeadlinesRecyclerView.setItemViewCacheSize(20);
             trendingHeadlinesRecyclerView.setDrawingCacheEnabled(true);
@@ -99,97 +87,77 @@ public class W_TopStories extends Fragment {
             adapter.notifyDataSetChanged();
 
 
-
-
             getStories("bbc-news");
-
-
 
 
         }
 
 
-
-
         return view;
-
-
 
 
     }
 
 
-
-
-    public void getStories(String newspaper){
-
-
+    public void getStories(String newspaper) {
 
 
         //our url for news
-           String api = "https://newsapi.org/v1/articles?source="+newspaper+"&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
-           StringRequest request = new StringRequest(Request.Method.GET, api, new Response.Listener<String>() {
-             @Override
-             public void onResponse(String response) {
-                 //first get json object
-                 try {
-                     JSONObject object = new JSONObject(response);
-                     //get json array from it
-                     JSONArray array = object.getJSONArray("articles");
-                     //now get every title etc from that array
-                     JSONObject object1=null;
-                     NewsModel model;
-                     for (int i=0;i<array.length();i++){
-                         model = new NewsModel();
-                         object1 =  array.getJSONObject(i);
-                         model.setTitle(object1.getString("title"));
-                         model.setDescription(object1.getString("description"));
-                         model.setAuthor(object1.getString("author"));
-                         model.setUrl(object1.getString("url"));
-                         model.setUrlToImage(object1.getString("urlToImage"));
-                         model.setPublishedAt(object1.getString("publishedAt"));
-                         adapter.addItem(model);
-                         progressDialog.dismiss();
-                     }
-                 } catch (JSONException e) {
-                     e.printStackTrace();
-                 }
-             }
-         }, new Response.ErrorListener() {
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+        String api = "https://newsapi.org/v1/articles?source=" + newspaper + "&sortBy=latest&apiKey=7eb605a354634012a3946004936e71cc";
+        StringRequest request = new StringRequest(Request.Method.GET, api, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //first get json object
+                try {
+                    JSONObject object = new JSONObject(response);
+                    //get json array from it
+                    JSONArray array = object.getJSONArray("articles");
+                    //now get every title etc from that array
+                    JSONObject object1 = null;
+                    NewsModel model;
+                    for (int i = 0; i < array.length(); i++) {
+                        model = new NewsModel();
+                        object1 = array.getJSONObject(i);
+                        model.setTitle(object1.getString("title"));
+                        model.setDescription(object1.getString("description"));
+                        model.setAuthor(object1.getString("author"));
+                        model.setUrl(object1.getString("url"));
+                        model.setUrlToImage(object1.getString("urlToImage"));
+                        model.setPublishedAt(object1.getString("publishedAt"));
+                        adapter.addItem(model);
+                        progressDialog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
 
 
+                progressDialog.dismiss();
 
 
-                 progressDialog.dismiss();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage("Check Internet Connectivity...");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton(
+                        "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
-
-
-
-                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                 builder1.setMessage("Check Internet Connectivity...");
-                 builder1.setCancelable(true);
-                 builder1.setPositiveButton(
-                         "Cancel",
-                         new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog, int id) {
-                                 dialog.cancel();
-                             }
-                         });
-
-                 AlertDialog alert11 = builder1.create();
-                 alert11.show();
-             }
-         });
-
-
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        });
 
 
         Volley.newRequestQueue(getContext()).add(request);
-
-
 
 
     }

@@ -4,9 +4,9 @@ package com.gradledevextreme.light.newsbox.Models;
  * Created by anshuman on 07/10/17.
  */
 
-public class  NewsModel {
+public class NewsModel {
 
-    private String title,description,author,url,urlToImage,publishedAt;
+    private String title, description, author, url, urlToImage, publishedAt;
 
     public String getTitle() {
         return title;

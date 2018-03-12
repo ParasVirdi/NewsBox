@@ -84,8 +84,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         editor.apply();
 
 
-
-
         // Bottom Navigation View
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

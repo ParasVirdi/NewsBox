@@ -9,19 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import android.widget.Toast;
+
 import com.gradledevextreme.light.newsbox.R;
+
 import im.delight.android.webview.AdvancedWebView;
 
-public class WebView extends AppCompatActivity implements AdvancedWebView.Listener{
-
-
+public class WebView extends AppCompatActivity implements AdvancedWebView.Listener {
 
 
     private AdvancedWebView mWebView;
-    public static String mUrl ;
+    public static String mUrl;
     private ProgressDialog progressDialog;
-
-
 
 
     @Override
@@ -41,12 +39,9 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
         mWebView.setThirdPartyCookiesEnabled(true);
 
 
-
         mWebView.addHttpHeader("X-Requested-With", "");
         mWebView.loadUrl(mUrl);
     }
-
-
 
 
     @SuppressLint("NewApi")
@@ -60,8 +55,6 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     }
 
 
-
-
     @SuppressLint("NewApi")
     @Override
     protected void onPause() {
@@ -69,8 +62,6 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
         // ...
         super.onPause();
     }
-
-
 
 
     @Override
@@ -81,8 +72,6 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -90,8 +79,6 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 
         // ...
     }
-
-
 
 
     @Override
@@ -104,16 +91,11 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     }
 
 
-
-
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
         mWebView.setVisibility(View.INVISIBLE);
 
     }
-
-
-
 
 
     @Override
@@ -123,14 +105,10 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
     }
 
 
-
-
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
         Toast.makeText(WebView.this, "onPageError(errorCode = " + errorCode + ",  description = " + description + ",  failingUrl = " + failingUrl + ")", Toast.LENGTH_SHORT).show();
     }
-
-
 
 
     @Override
@@ -144,8 +122,6 @@ public class WebView extends AppCompatActivity implements AdvancedWebView.Listen
 			// download couldn't be handled because user has disabled download manager app on the device
 		}*/
     }
-
-
 
 
     @Override
