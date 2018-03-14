@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -45,8 +46,8 @@ public class TopStories extends Fragment {
     private CustomAdapter adapter;
     private RecyclerView trendingHeadlinesRecyclerView;
     private ArrayList<NewsModel> arrayList;
-    private ProgressDialog progressDialog;
-    private boolean value = true;
+    private ProgressBar progressBar;
+    // private ProgressDialog progressDialog;
 
 
     public TopStories() {
@@ -65,11 +66,12 @@ public class TopStories extends Fragment {
         String location = settings.getString("location", "");
 
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Buffering data from servers...");
-        if (value) {
-            progressDialog.show();
-        }
+//        progressDialog = new ProgressDialog(getActivity());
+//        progressDialog.setMessage("Buffering data from servers...");
+//        progressDialog.show();
+
+
+        progressBar = (ProgressBar) view.findViewById(R.id.loader);
 
         //if we dont have any location india or world etc in locations
         if (location.equals("")) {
@@ -141,11 +143,8 @@ public class TopStories extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        if(value)
-                        {
-                            progressDialog.dismiss();
-                            value = false;
-                        }
+                        progressBar.setVisibility(View.GONE);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -157,7 +156,7 @@ public class TopStories extends Fragment {
                 Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
 
 
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
 
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());

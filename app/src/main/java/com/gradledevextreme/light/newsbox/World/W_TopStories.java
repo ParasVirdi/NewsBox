@@ -60,7 +60,7 @@ public class W_TopStories extends Fragment {
 
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_trending, container, false);
+        View view = inflater.inflate(R.layout.fragment_entertainment, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(NavigationActivity.PREFS_NAME, 0);
         String location = settings.getString("location", "");
 

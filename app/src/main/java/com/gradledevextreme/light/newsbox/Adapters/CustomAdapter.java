@@ -2,28 +2,18 @@ package com.gradledevextreme.light.newsbox.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
 import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
-import com.gradledevextreme.light.newsbox.WebView.WebView;
+import com.gradledevextreme.light.newsbox.WebView_y.WebVieww;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -61,7 +51,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
         holder.titleTextView.setText(model.getTitle());
         holder.descriptionTextView.setText(model.getDescription());
-        holder.publishedAtTextView.setText(model.getPublishedAt());
+        String mPublishedAt = model.getPublishedAt();
+        String[] parts = mPublishedAt.split("T", 2);
+        holder.publishedAtTextView.setText(parts[0]);
 
 
         //to load images in recycler view without piccaso
@@ -108,9 +100,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         @Override
         public void onClick(View view) {
             NewsModel model = newsModelArrayList.get(this.getPosition());
-            Intent nextWebView = new Intent(mContext, WebView.class);
-            WebView.mUrl = model.getUrl().toString();
+            Intent nextWebView = new Intent(mContext, WebVieww.class);
+            WebVieww.mUrl = model.getUrl().toString();
             mContext.startActivity(nextWebView);
+
+//            Intent nextWebView = new Intent(mContext, WebVieww.class);
+//            WebView.mUrl = model.getUrl().toString();
+//            mContext.startActivity(nextWebView);
         }
 
         @Override
