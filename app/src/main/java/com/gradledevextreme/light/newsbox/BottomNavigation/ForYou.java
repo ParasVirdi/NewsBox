@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.gradledevextreme.light.newsbox.Activities.LoginActivity;
 import com.gradledevextreme.light.newsbox.Activities.NavigationActivity;
 import com.gradledevextreme.light.newsbox.Adapters.CustomAdapter;
-import com.gradledevextreme.light.newsbox.Interests;
+import com.gradledevextreme.light.newsbox.Interestss.Interests;
 import com.gradledevextreme.light.newsbox.Models.NewsModel;
 import com.gradledevextreme.light.newsbox.R;
 
@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * For You fragment including interests of user
  */
 public class ForYou extends Fragment {
 

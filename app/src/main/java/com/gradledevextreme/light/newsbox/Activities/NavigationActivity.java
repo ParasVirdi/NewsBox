@@ -1,11 +1,9 @@
 package com.gradledevextreme.light.newsbox.Activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,11 +34,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.gradledevextreme.light.newsbox.BottomNavigation.World;
 import com.gradledevextreme.light.newsbox.BottomNavigation.ForYou;
 import com.gradledevextreme.light.newsbox.BottomNavigation.HeadLines;
-import com.gradledevextreme.light.newsbox.Fragment_main;
-import com.gradledevextreme.light.newsbox.Interests;
+import com.gradledevextreme.light.newsbox.FragmentMain.Fragment_main;
+import com.gradledevextreme.light.newsbox.Interestss.Interests;
 import com.gradledevextreme.light.newsbox.R;
-
-import java.net.InetAddress;
 
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

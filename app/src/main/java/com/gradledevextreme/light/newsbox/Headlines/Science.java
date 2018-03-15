@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+   Required for Science News
  */
 
 

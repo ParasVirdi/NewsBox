@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Light on 3/14/2018.
+ *Function for Http url connection in async task
  */
 
 public class Function {

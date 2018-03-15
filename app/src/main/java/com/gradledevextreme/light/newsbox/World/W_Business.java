@@ -34,7 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Business Fragment for World
  */
 public class W_Business extends Fragment {
 
@@ -120,7 +120,7 @@ public class W_Business extends Fragment {
                         model.setUrlToImage(object1.getString("urlToImage"));
                         model.setPublishedAt(object1.getString("publishedAt"));
                         adapter.addItem(model);
-                        if(value) {
+                        if (value) {
                             progressDialog.dismiss();
                             value = false;
                         }
@@ -142,32 +142,4 @@ public class W_Business extends Fragment {
     }
 
 
-    public void getNewsForIndia() {
-
-
-        String url = "http://www.thehindu.com/todays-paper/tp-business/";
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("response", response);
-                String[] split = response.split("<ul class=\"archive-list\">");
-                Pattern pattern = Pattern.compile(">(.*?)<");
-                Matcher matcher = pattern.matcher(split[1]);
-                if (matcher.find()) {
-                    Log.v("matcher", matcher.group(1));
-                } else {
-                    Log.v("not", "found");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-
-        Volley.newRequestQueue(getContext()).add(request);
-
-
-    }
 }

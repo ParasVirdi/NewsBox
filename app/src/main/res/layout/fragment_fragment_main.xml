@@ -3,7 +3,7 @@
     android:id="@+id/fragment_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gradledevextreme.light.newsbox.Fragment_main">
+    tools:context="com.gradledevextreme.light.newsbox.FragmentMain.Fragment_main">
 
 
 </FrameLayout>

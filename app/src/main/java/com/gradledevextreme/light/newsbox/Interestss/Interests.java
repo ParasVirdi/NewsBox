@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox;
+package com.gradledevextreme.light.newsbox.Interestss;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+import com.gradledevextreme.light.newsbox.R;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,8 @@
 package com.gradledevextreme.light.newsbox.WebView_y;
 
-import android.app.ProgressDialog;
-import android.graphics.Color;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;

@@ -31,8 +31,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Fragment for Technology component
+ * */
 public class Technology extends Fragment {
 
     private CustomAdapter adapter;

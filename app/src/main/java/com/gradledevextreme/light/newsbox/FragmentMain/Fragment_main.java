@@ -1,4 +1,4 @@
-package com.gradledevextreme.light.newsbox;
+package com.gradledevextreme.light.newsbox.FragmentMain;
 
 
 import android.os.Bundle;
@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gradledevextreme.light.newsbox.R;
+
 
 /**
- * A simple {@link Fragment} subclass.
+  Main Fragment in Navigation Activity
  */
 public class Fragment_main extends Fragment {
 

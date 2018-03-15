@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+World Technology Fragment
  */
 public class W_Technology extends Fragment {
 

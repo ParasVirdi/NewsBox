@@ -70,7 +70,7 @@ public class Entertainment extends Fragment {
         } else {
             ArrayList<NewsModel> arrayList = new ArrayList<>();
             adapter = new CustomAdapter(getContext(), arrayList);
-            RecyclerView entertainmentHeadlinesRecyclerView = view.findViewById(R.id.entertainmentHeadlinesRecyclerView);
+            entertainmentHeadlinesRecyclerView = view.findViewById(R.id.entertainmentHeadlinesRecyclerView);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             entertainmentHeadlinesRecyclerView.setLayoutManager(layoutManager);
             entertainmentHeadlinesRecyclerView.setItemViewCacheSize(20);

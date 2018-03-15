@@ -42,7 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A simple {@link Fragment} subclass.
+   Required for Business news
  */
 public class Business extends Fragment {
 

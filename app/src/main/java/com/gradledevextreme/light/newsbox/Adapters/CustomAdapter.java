@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by anshuman on 07/10/17.
+ Custom Adapter for handling recycler view
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {

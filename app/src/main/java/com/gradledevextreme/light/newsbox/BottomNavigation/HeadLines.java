@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Headline fragment containing view pager
  */
 public class HeadLines extends Fragment {
 

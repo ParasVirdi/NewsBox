@@ -34,8 +34,7 @@ import java.util.ArrayList;
 
 
 /**
- * In this class all stories are of general category and this comes under headlines thats why
- * it contains general news.
+ World Top Stories Fragment
  */
 
 

@@ -1,7 +1,7 @@
 package com.gradledevextreme.light.newsbox.Models;
 
 /**
- * Created by anshuman on 07/10/17.
+ * News model for data type of news api
  */
 
 public class NewsModel {
